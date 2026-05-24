@@ -209,12 +209,12 @@ export default function Players() {
 
             <div>
               <label className="label-cyber">Nombre *</label>
-              <input className="input-cyber" required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
+              <input className="input-cyber" required value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} />
             </div>
 
             <div>
               <label className="label-cyber">Apellido *</label>
-              <input className="input-cyber" required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
+              <input className="input-cyber" required value={form.apellido} onChange={(e) => setForm({ ...form, apellido: e.target.value })} />
             </div>
 
             <div>

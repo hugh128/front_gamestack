@@ -14,7 +14,7 @@ const emptySession = {
   jugadorId: "", jugadorUsername: "", juegoId: "", juegoTitulo: "",
   fechaInicio: new Date().toISOString().slice(0, 16),
   fechaFin: "", plataforma: "PC", modoJuego: "libre", notas: "",
-  estadisticas: { puntuacion: 0, muertes: 0, victorias: 0, derrotas: 0, kda: 0 },
+  estadisticas: { puntuacion: 0, muertes: 0, victorias: 0, derrotas: 0 },
 };
 
 export default function Sessions() {
@@ -182,7 +182,6 @@ export default function Sessions() {
                       {s.estadisticas.victorias > 0 && <span className="text-[var(--neon-green)]">✓ {s.estadisticas.victorias}V</span>}
                       {s.estadisticas.derrotas > 0 && <span className="text-[var(--neon-pink)]">✗ {s.estadisticas.derrotas}D</span>}
                       {s.estadisticas.muertes > 0 && <span className="text-slate-400">💀 {s.estadisticas.muertes}</span>}
-                      {s.estadisticas.kda > 0 && <span className="text-[var(--neon-cyan)]">KDA {s.estadisticas.kda}</span>}
                     </div>
                   )}
                   {s.notas && <p className="text-xs text-slate-500 mt-1 italic">"{s.notas}"</p>}
@@ -248,7 +247,6 @@ export default function Sessions() {
                 { key: "victorias", label: "Victorias" },
                 { key: "derrotas", label: "Derrotas" },
                 { key: "muertes", label: "Muertes" },
-                { key: "kda", label: "KDA" },
               ].map(({ key, label }) => (
                 <div key={key}>
                   <label className="label-cyber">{label}</label>

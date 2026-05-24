@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { gamesAPI } from "../utils/api";
 import { Spinner, Modal, Toast, ConfirmDialog, Badge, EmptyState } from "../components/UI";
 
-const GENEROS = ["Acción", "RPG", "Estrategia", "Deportes", "Aventura", "Terror", "Puzzle", "Simulación", "Plataformas", "FPS", "MOBA", "Battle Royale"];
+const GENEROS = ["Acción", "RPG", "Estrategia", "Deportes", "Aventura", "Terror", "Puzzle", "Simulación", "Plataformas", "FPS", "MOBA", "Battle Royale", "Mundo Abierto"];
 const PLATAFORMAS = ["PC", "PS5", "PS4", "Xbox Series X", "Xbox One", "Nintendo Switch", "Mobile", "Mac"];
 const ESTADOS = ["disponible", "agotado", "proximamente"];
 
 const emptyGame = {
   titulo: "", desarrollador: "", publisher: "", anioLanzamiento: new Date().getFullYear(),
-  generos: [], plataformas: [], descripcion: "", precio: 0, estado: "disponible", etiquetas: [],
+  generos: [], plataformas: [], descripcion: "", precio: 0, estado: "disponible",
 };
 
 export default function Games() {
@@ -49,7 +49,7 @@ export default function Games() {
 
   const openCreate = () => { setForm(emptyGame); setEditGame(null); setShowModal(true); };
   const openEdit = (game) => {
-    setForm({ ...game, generos: game.generos || [], plataformas: game.plataformas || [], etiquetas: game.etiquetas || [] });
+    setForm({ ...game, generos: game.generos || [], plataformas: game.plataformas || [] });
     setEditGame(game._id);
     setShowModal(true);
   };
@@ -169,7 +169,7 @@ export default function Games() {
                     )}
                   </div>
                   <div className="font-mono text-xs text-slate-500 mb-2">
-                    {game.desarrollador} · {game.anioLanzamiento} · ${game.precio}
+                    {game.desarrollador} · {game.anioLanzamiento} · Q.{game.precio}
                   </div>
                   <div className="flex flex-wrap gap-1.5 mb-2">
                     {game.generos?.map((g) => <Badge key={g} text={g} color="cyan" />)}
@@ -195,6 +195,27 @@ export default function Games() {
                   </button>
                 </div>
               </div>
+
+              {/* Reviews */}
+              {game.reviews?.length > 0 && (
+                <div className="mt-4 pt-4 border-t border-[rgba(0,245,255,0.08)] space-y-2">
+                  <div className="font-mono text-xs text-slate-500 uppercase tracking-widest mb-2">Reviews ({game.reviews.length})</div>
+                  {game.reviews.map((r) => (
+                    <div key={r._id} className="flex items-start justify-between bg-[var(--dark-950)] p-3 gap-3">
+                      <div>
+                        <span className="font-mono text-xs text-[var(--neon-cyan)] mr-2">{r.autor}</span>
+                        <span className="font-mono text-xs text-[var(--neon-yellow)] mr-2">★ {r.puntuacion}/10</span>
+                        {r.comentario && <span className="text-xs text-slate-400">{r.comentario}</span>}
+                      </div>
+                      <button
+                        className="text-[var(--neon-pink)] font-mono text-xs opacity-60 hover:opacity-100"
+                        onClick={() => handleDeleteReview(game._id, r._id)}
+                      >✕</button>
+                    </div>
+                  ))}
+                </div>
+              )}
+
             </div>
           ))}
         </div>
