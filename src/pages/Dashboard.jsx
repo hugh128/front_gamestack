@@ -57,11 +57,12 @@ export default function Dashboard() {
         <h2 className="section-title text-lg text-white mb-6">
           Estadísticas Globales
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <StatCard label="Juegos" value={stats?.totalGames ?? 0} color="cyan" icon="◆" />
-          <StatCard label="Jugadores" value={stats?.totalPlayers ?? 0} color="pink" icon="◉" />
-          <StatCard label="Horas Jugadas" value={`${stats?.totalHoras ?? 0}h`} color="yellow" icon="◈" />
-        </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+            <StatCard label="Juegos" value={stats?.totalGames ?? 0} color="cyan" icon="◆" />
+            <StatCard label="Jugadores" value={stats?.totalPlayers ?? 0} color="pink" icon="◉" />
+            <StatCard label="Sesiones" value={stats?.totalSessions ?? 0} color="green" icon="◎" />
+            <StatCard label="Horas Jugadas" value={`${stats?.totalHoras ?? 0}h`} color="yellow" icon="◈" />
+          </div>
       </div>
 
       {/* Modules */}
@@ -85,6 +86,14 @@ export default function Dashboard() {
               color: "pink",
               count: stats?.totalPlayers,
             },
+            {
+              to: "/sessions",
+              label: "Sesiones",
+              icon: "◎",
+              desc: "Registra y consulta sesiones de juego con estadísticas detalladas por partida.",
+              color: "green",
+              count: stats?.totalSessions,
+            },
           ].map((mod) => (
             <Link
               key={mod.to}
@@ -106,6 +115,29 @@ export default function Dashboard() {
           ))}
         </div>
       </div>
+
+      {/* Recent games */}
+      {stats?.recentGames?.length > 0 && (
+        <div>
+          <h2 className="section-title text-lg text-white mb-6">Últimos Juegos Agregados</h2>
+          <div className="space-y-2">
+            {stats.recentGames.map((game) => (
+              <div key={game._id} className="card-cyber flex items-center justify-between p-4">
+                <div>
+                  <div className="font-body font-semibold text-white text-sm">{game.titulo}</div>
+                  <div className="font-mono text-xs text-slate-500">{game.desarrollador} · {game.anioLanzamiento}</div>
+                </div>
+                <div className="flex gap-2 flex-wrap justify-end">
+                  {game.generos?.slice(0, 2).map((g) => (
+                    <span key={g} className="badge-cyber border-[rgba(0,245,255,0.3)] text-[var(--neon-cyan)]">{g}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

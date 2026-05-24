@@ -4,6 +4,7 @@ const navItems = [
   { to: "/", label: "Dashboard", icon: "◈" },
   { to: "/games", label: "Juegos", icon: "◆" },
   { to: "/players", label: "Jugadores", icon: "◉" },
+  { to: "/sessions", label: "Sesiones", icon: "◎" },
 ];
 
 export default function Navbar() {

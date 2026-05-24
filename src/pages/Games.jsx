@@ -263,6 +263,30 @@ export default function Games() {
           </div>
         </form>
       </Modal>
+
+      {/* Modal Review */}
+      <Modal isOpen={showReviewModal} onClose={() => setShowReviewModal(false)} title={`REVIEW: ${selectedGame?.titulo}`}>
+        <form onSubmit={handleAddReview} className="space-y-4">
+          <div>
+            <label className="label-cyber">Autor *</label>
+            <input className="input-cyber" required value={reviewForm.autor} onChange={(e) => setReviewForm({ ...reviewForm, autor: e.target.value })} />
+          </div>
+          <div>
+            <label className="label-cyber">Puntuación (1-10) *</label>
+            <input className="input-cyber" type="number" min="1" max="10" required value={reviewForm.puntuacion}
+              onChange={(e) => setReviewForm({ ...reviewForm, puntuacion: +e.target.value })} />
+          </div>
+          <div>
+            <label className="label-cyber">Comentario</label>
+            <textarea className="input-cyber min-h-[80px] resize-none" value={reviewForm.comentario}
+              onChange={(e) => setReviewForm({ ...reviewForm, comentario: e.target.value })} />
+          </div>
+          <div className="flex justify-end gap-3">
+            <button type="button" className="btn-cyber btn-cyber-pink" onClick={() => setShowReviewModal(false)}>CANCELAR</button>
+            <button type="submit" className="btn-cyber btn-cyber-green">AGREGAR</button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 }

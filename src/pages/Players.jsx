@@ -27,6 +27,7 @@ export default function Players() {
   const [confirm, setConfirm] = useState({ open: false, id: null });
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [showLogroModal, setShowLogroModal] = useState(false);
+  const [logroForm, setLogroForm] = useState({ nombre: "", descripcion: "", puntos: 10 });
 
   const showToast = (msg, type = "success") => {
     setToast({ message: msg, type });
@@ -249,6 +250,28 @@ export default function Players() {
           <div className="flex justify-end gap-3 pt-2">
             <button type="button" className="btn-cyber btn-cyber-pink" onClick={() => setShowModal(false)}>CANCELAR</button>
             <button type="submit" className="btn-cyber">{editPlayer ? "ACTUALIZAR" : "CREAR"}</button>
+          </div>
+        </form>
+      </Modal>
+
+      {/* Modal Logro */}
+      <Modal isOpen={showLogroModal} onClose={() => setShowLogroModal(false)} title={`LOGRO PARA: ${selectedPlayer?.username}`}>
+        <form onSubmit={handleAddLogro} className="space-y-4">
+          <div>
+            <label className="label-cyber">Nombre del Logro *</label>
+            <input className="input-cyber" required value={logroForm.nombre} onChange={(e) => setLogroForm({ ...logroForm, nombre: e.target.value })} />
+          </div>
+          <div>
+            <label className="label-cyber">Descripción</label>
+            <input className="input-cyber" value={logroForm.descripcion} onChange={(e) => setLogroForm({ ...logroForm, descripcion: e.target.value })} />
+          </div>
+          <div>
+            <label className="label-cyber">Puntos XP</label>
+            <input className="input-cyber" type="number" min="1" value={logroForm.puntos} onChange={(e) => setLogroForm({ ...logroForm, puntos: +e.target.value })} />
+          </div>
+          <div className="flex justify-end gap-3">
+            <button type="button" className="btn-cyber btn-cyber-pink" onClick={() => setShowLogroModal(false)}>CANCELAR</button>
+            <button type="submit" className="btn-cyber btn-cyber-green">DESBLOQUEAR 🏆</button>
           </div>
         </form>
       </Modal>
